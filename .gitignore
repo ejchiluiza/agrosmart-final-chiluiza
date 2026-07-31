@@ -1,4 +1,5 @@
 # --- Maven ---
+HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -27,6 +28,13 @@ out/
 .springBeans
 .sts4-cache
 bin/
+
+# --- NetBeans ---
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
 # --- VS Code ---
 .vscode/
