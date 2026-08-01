@@ -28,23 +28,25 @@
 
 **1.1** ¿Qué archivo activa el perfil `prod` y qué línea exacta lo hace?
 
->
+> En `src/main/resources/application.properties` agregué la línea `spring.profiles.active=prod`, que le indica a Spring Boot que cargue también `application-prod.properties` al arrancar.
+
 
 **1.2** Pega la línea del log de arranque donde se ve tu puerto y el perfil activo.
 
 ```
-
+2026-07-31T19:12:14.277-05:00  INFO 44676 --- [agrosmart] [           main] e.e.espe.agrosmart.AgrosmartApplication  : The following 1 profile is active: "prod"
+2026-07-31T19:12:26.624-05:00  INFO 44676 --- [agrosmart] [           main] o.s.boot.reactor.netty.NettyWebServer    : Netty started on port 8158 (http)
 ```
 
 **1.3** ¿Qué habría pasado si dejabas `ddl-auto=create-drop` en lugar de `update`?
 Responde pensando en tus datos sembrados.
 
->
+> Con `create-drop`, Hibernate borraría la tabla `tbl_productos_base_58` completa cada vez que detenga la aplicación, perdiendo todos mis datos sembrados. Con `update`, Hibernate solo agrega columnas o tablas que falten, sin borrar los datos existentes entre arranques.
 
 **1.4** ¿Levantaste PostgreSQL con `compose.yaml` (Opción A) o con una instalación local
 (Opción B)? ¿Qué ventaja tiene la que elegiste?
 
->
+>Usé la Opción A con `compose.yaml`. La ventaja es que Spring Boot levanta y apaga el contenedor `agrosmart-postgres` automáticamente al iniciar/detener la aplicación, sin que yo tenga que instalar PostgreSQL en mi máquina ni configurar `spring.datasource.*` manualmente.
 
 ---
 
