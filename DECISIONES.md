@@ -17,10 +17,10 @@
 
 ## Datos
 
-- **Nombre:**
-- **Cédula:**
-- **NN (dos últimos dígitos):**
-- **Categoría asignada (según el último dígito):**
+- **Nombre:** Edison Javier Chiluiza Gualpa
+- **Cédula:** 1725636458
+- **NN (dos últimos dígitos):** 58
+- **Categoría asignada (según el último dígito):** Quinua
 
 ---
 
@@ -76,6 +76,9 @@ lo fuera? (piensa en la restricción `unique` de `nombre_producto`)
 ## Fase 3 — Modelo inmutable y lógica funcional
 
 **3.1** ¿Por qué tienes **dos** clases (`ProductoEntity` y `Producto`) en lugar de una?
+
+> `ProductoEntity` es la clase que usa Hibernate para mapear la tabla, necesita constructor vacío y setters. `Producto` es mi modelo de dominio inmutable, sin setters, con todos sus campos `final`. Si intentara hacer inmutable a `ProductoEntity`, Hibernate no podría instanciarla ni llenarla con los datos de la base.
+
 ¿Qué te impide hacer inmutable directamente la entidad de Hibernate?
 
 >
@@ -84,18 +87,31 @@ lo fuera? (piensa en la restricción `unique` de `nombre_producto`)
 está cada una.
 
 ```java
+// Constructor (copia de ENTRADA):
+this.correosNotificacion = new ArrayList<>(correosNotificacion);
 
+// Getter (copia de SALIDA):
+public List<String> getCorreosNotificacion() {
+    return Collections.unmodifiableList(new ArrayList<>(correosNotificacion));
+}
 ```
 
 **3.3** ¿Por qué la copia defensiva **solo en el getter** no sería suficiente? Describe
 el ataque concreto que quedaría abierto sobre **tu** clase.
 
->
+>Si solo copio en el getter pero no en el constructor, alguien podría guardar una referencia a la lista original antes de pasarla al constructor, y luego modificarla desde afuera — esa modificación afectaría directamente mi objeto `Producto`, aunque yo nunca haya expuesto la lista interna.
 
 **3.4** ¿Cómo implementaste `A_MAYUSCULAS` para no mutar el `Producto` recibido?
 
 ```java
-
+public static final Function<Producto, Producto> A_MAYUSCULAS = producto ->
+        new Producto(
+                producto.getId(),
+                producto.getNombre().toUpperCase(),
+                producto.getCategoria(),
+                producto.getPrecioUsd(),
+                producto.getCorreosNotificacion()
+        );
 ```
 
 ---

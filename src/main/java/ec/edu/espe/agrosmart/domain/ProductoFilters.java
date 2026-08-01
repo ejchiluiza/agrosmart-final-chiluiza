@@ -1,0 +1,24 @@
+package ec.edu.espe.agrosmart.domain;
+
+import java.util.function.Predicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+public class ProductoFilters {
+
+    public static final Predicate<Producto> IS_VALID = producto ->
+            producto.getPrecioUsd().compareTo(java.math.BigDecimal.ZERO) > 0
+            && !producto.getCorreosNotificacion().isEmpty();
+
+    public static final Consumer<Producto> LOG_PRODUCTO = producto ->
+            System.out.println("Procesando producto id=" + producto.getId() + ", nombre=" + producto.getNombre());
+
+    public static final Function<Producto, Producto> A_MAYUSCULAS = producto ->
+            new Producto(
+                    producto.getId(),
+                    producto.getNombre().toUpperCase(),
+                    producto.getCategoria(),
+                    producto.getPrecioUsd(),
+                    producto.getCorreosNotificacion()
+            );
+}
