@@ -1,0 +1,9 @@
+ id_producto | categoria |         correos_notificacion          |    nombre_producto    | precio_usd | stock_kg 
+-------------+-----------+---------------------------------------+-----------------------+------------+----------
+           1 | Quinua    | ventas@agrosmart.ec                   | Quinua blanca premium |      12.50 |      150
+           2 | Quinua    | pedidos@agrosmart.ec                  | Quinua roja andina    |      14.00 |      100
+           3 | Quinua    | ventas@agrosmart.ec,info@agrosmart.ec | Quinua negra orgánica |      15.00 |       80
+           4 | Quinua    | ventas@agrosmart.ec                   | Quinua tricolor       |       0.00 |       50
+           5 | Quinua    |                                       | Quinua básica         |       5.00 |      200
+(5 rows)
+
